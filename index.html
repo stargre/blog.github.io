@@ -1,1 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静思录 - 我的个人博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #10b981;
+            --dark-color: #1f2937;
+            --light-color: #f9fafb;
+            --gray-color: #9ca3af;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* 英雄区域样式 */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        /* 文章卡片样式 */
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .article-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .article-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .article-card:hover .article-img img {
+            transform: scale(1.05);
+        }
+        
+        .article-content {
+            padding: 25px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .article-meta span {
+            margin-right: 20px;
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+        }
+        
+        .article-content h2 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* 侧边栏样式 */
+        .sidebar-widget {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .sidebar-widget h3 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            color: var(--dark-color);
+        }
+        
+        .about-me {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 5px solid #f3f4f6;
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .categories {
+            list-style: none;
+        }
+        
+        .categories li {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories a {
+            display: flex;
+            justify-content: space-between;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .categories a:hover {
+            color: var(--primary-color);
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            padding: 5px 15px;
+            background-color: #f3f4f6;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-widget h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-widget h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-widget p {
+            margin-bottom: 20px;
+            color: #d1d5db;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #374151;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            .nav-links {
+                margin-top: 20px;
+            }
+            
+            .nav-links li {
+                margin: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-pen-nib"></i>
+                    静思录
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">文章</a></li>
+                    <li><a href="#">分类</a></li>
+                    <li><a href="#">关于</a></li>
+                    <li><a href="#">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container">
+            <h1>分享知识与思考</h1>
+            <p>这里记录着我的技术学习、生活感悟和创作内容，希望能为你带来一些启发和帮助</p>
+            <a href="#" class="btn">查看最新文章</a>
+        </div>
+    </section>
+
+    <!-- 主要内容区域 -->
+    <div class="container">
+        <div class="main-content">
+            <!-- 文章列表 -->
+            <div class="articles">
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="文章图片">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 2023年6月15日</span>
+                            <span><i class="far fa-folder"></i> 前端开发</span>
+                        </div>
+                        <h2>探索CSS Grid布局的无限可能</h2>
+                        <p>在现代Web开发中，CSS Grid布局已经成为了创建复杂响应式布局的首选工具。本文将深入探讨Grid布局的高级技巧和实际应用场景，帮助你更好地掌握这一强大的布局系统。</p>
+                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="文章图片">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 2023年6月10日</span>
+                            <span><i class="far fa-folder"></i> JavaScript</span>
+                        </div>
+                        <h2>JavaScript异步编程的演进：从回调到Async/Await</h2>
+                        <p>JavaScript的异步编程模式经历了漫长的发展历程。本文将从回调函数讲起，逐步介绍Promise、Generator，最终到Async/Await，帮助你理解JavaScript异步编程的发展脉络和最佳实践。</p>
+                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="文章图片">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 2023年6月5日</span>
+                            <span><i class="far fa-folder"></i> 用户体验</span>
+                        </div>
+                        <h2>现代Web应用中的微交互设计</h2>
+                        <p>微交互是用户体验设计中常被忽视但却至关重要的细节。本文将探讨如何通过精心设计的微交互提升用户满意度，并分享一些实用的设计技巧和实现方法。</p>
+                        <a href="#" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+                <div class="sidebar-widget about-me">
+                    <div class="profile-img">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" alt="作者头像">
+                    </div>
+                    <h3>关于我</h3>
+                    <p>前端开发工程师，热爱Web技术和用户体验设计。喜欢分享知识和学习心得，希望与更多人交流进步。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>文章分类</h3>
+                    <ul class="categories">
+                        <li><a href="#">前端开发 <span>(15)</span></a></li>
+                        <li><a href="#">JavaScript <span>(12)</span></a></li>
+                        <li><a href="#">CSS <span>(8)</span></a></li>
+                        <li><a href="#">用户体验 <span>(7)</span></a></li>
+                        <li><a href="#">工具推荐 <span>(5)</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>热门标签</h3>
+                    <div class="tags">
+                        <a href="#" class="tag">React</a>
+                        <a href="#" class="tag">Vue</a>
+                        <a href="#" class="tag">响应式设计</a>
+                        <a href="#" class="tag">性能优化</a>
+                        <a href="#" class="tag">TypeScript</a>
+                        <a href="#" class="tag">Webpack</a>
+                        <a href="#" class="tag">算法</a>
+                        <a href="#" class="tag">动画</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-widget">
+                    <h4>关于博客</h4>
+                    <p>静思录是一个专注于Web前端技术和用户体验设计的个人博客，旨在分享知识和经验，促进技术交流。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-widget">
+                    <h4>快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">文章</a></li>
+                        <li><a href="#">分类</a></li>
+                        <li><a href="#">关于我</a></li>
+                        <li><a href="#">联系方式</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-widget">
+                    <h4>联系方式</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@example.com</li>
+                        <li><i class="fas fa-phone"></i> +86 123 4567 8901</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 静思录 - 个人博客. 保留所有权利</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的滚动效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const readMoreLinks = document.querySelectorAll('.read-more');
+            
+            readMoreLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('这里将会跳转到文章详情页面');
+                });
+            });
+            
+            const navbar = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                } else {
+                    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                    navbar.style.background = 'white';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
